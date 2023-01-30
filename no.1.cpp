@@ -1,42 +1,66 @@
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-int countSigDigits(string num)
-{
-    int count = 0;
-    bool trailingZeros = true;
-    bool hasDecimal = false;
-    for (int i = 0; i < num.length(); i++)
-    {
-        if (num[i] == '.')
-        {
-            hasDecimal = true;
-            continue;
-        }
-        if (num[i] == '0' && trailingZeros)
-        {
-            continue;
-        }
-        if (num[i] != '0')
-        {
-            trailingZeros = false;
-            count++;
-        }
-        if (hasDecimal && num[i] == '0' || !hasDecimal && num[i] == '0')
-        {
-            count++;
-        }
-    }
-    return count;
-}
-
+#include<iostream>
+#include<cstring>
+using namespace std ;
 int main()
 {
-    string num1 = "0.000001234";
-    string num2 = "4500.000012";
-    cout << countSigDigits(num1) << endl;
-    cout << countSigDigits(num2) << endl;
-    return 0;
+string s;
+long long n,j,f=0,cnt1=0,cnt2=0,pos,m=0;
+cin>>s;
+n=s.size();
+for(j=0;j<n;j++)
+{
+if(s[j]=='.'){
+f=1;
+pos=j;
+}
+}
+if(f==0)
+{
+for(j=0;j<n;j++)
+{
+if(s[j]=='0')
+cnt1++;
+else
+break;
+}
+for(j=n-1;j>=0;j--)
+{
+if(s[j]=='0')
+cnt2++;
+else
+break;
+}
+if(cnt1==n)
+cout<<"0";
+else
+cout<<n-(cnt1+cnt2);
+return 0;
+}
+if(f==1)
+{
+for(j=0;j<n;j++)
+{
+if(s[j]=='0')
+cnt1++;
+}
+if(n-1==cnt1){
+cout<<"0";
+m=1;
+}
+}
+if(f==1&&m==0)
+{
+for(j=0;j<n;j++)
+{
+if(s[j]=='.'||s[j]=='0')
+cnt2++;
+else
+break;
+}
+if(j>pos)
+cout<<n-cnt2;
+else
+cout<<(n-(cnt2+1));
+}
+return 0;
 }
